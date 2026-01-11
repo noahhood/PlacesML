@@ -1,0 +1,9 @@
+# Ignore IPython Notebook checkpoints
+.ipynb_checkpoints/
+.DS_Store
+
+# Virtual Environment
+.venv/
+
+# keep secrets and tokens out of git
+.env
