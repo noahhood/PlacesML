@@ -12,7 +12,7 @@ from sklearn.metrics import accuracy_score
 from xgboost import XGBRegressor
 os.chdir(sys.path[0])
 
-with open("places_grid_search_50_by_10.json", "r") as f:
+with open("places_grid_search_50_by_20.json", "r") as f:
     data = json.load(f)
 
 df = pd.DataFrame([{
@@ -47,6 +47,8 @@ for lat, lon in points:
 m.save("map.html")
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+print("Training samples:", len(X_train))
+print("Testing samples:", len(X_test))
 
 model = RandomForestClassifier(n_estimators=100, random_state=42)
 model.fit(X_train, y_train)
@@ -78,5 +80,6 @@ ax2.grid(alpha=0.3)
 ax2.set_xlim(-2.5, 2.5)
 
 plt.tight_layout()
-plt.show()
 plt.savefig("price_level_prediction_random_forest.png", dpi=300)
+
+print("Done!")
