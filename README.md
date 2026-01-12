@@ -1,6 +1,6 @@
 # PlacesML: Restaurant Price Level Prediction with Machine Learning
 
-This project predicts a restaurant’s **price level** using location and popularity signals from the **Google Places API**. The final model is a **Random Forest classifier** that achieves approximately **59% accuracy** on a held-out test set.
+This project predicts a restaurant’s **price level** using location and popularity signals from the **Google Places API**. The final model is a **Random Forest classifier** that achieves approximately **61% accuracy** on a held-out test set.
 
 ---
 
@@ -60,7 +60,7 @@ model = RandomForestClassifier(
 
 ## Results
 
-**Accuracy:** 59 percent
+**Accuracy:** 61 percent
 
 The model performs best on mid-range price levels and struggles more on extreme price categories. This behavior is primarily due to class imbalance and limited feature expressiveness.
 
@@ -68,8 +68,8 @@ The model performs best on mid-range price levels and struggles more on extreme 
 
 The project includes:
 
-- An interactive [**Folium map**](map_50_by_10_train.html) showing restaurant locations
-- [Histograms](price_level_prediction_random_forest_50_by_10.png) comparing **true price levels**, **predicted price levels**, and **prediction error**
+- An interactive [**Folium map**](map_50_by_20_train.html) showing restaurant locations
+- [Histograms](price_level_prediction_random_forest_50_by_20.png) comparing **true price levels**, **predicted price levels**, and **prediction error**
 
 
 These visualizations are used for qualitative model evaluation.

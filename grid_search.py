@@ -22,7 +22,7 @@ radius = 100  # meters
 places = []
 seen_ids = set()
 for i in range(50):
-    for j in range(10):
+    for j in range(20):
         response = client.search_nearby({
             'location_restriction': {
                 'circle': {
@@ -53,3 +53,5 @@ json_places = [
 
 with open("places_grid_search.json", "w", encoding="utf-8") as f:
     json.dump(json_places, f, indent=2, ensure_ascii=False)
+
+print(f"Total unique places fetched: {len(places)}")
