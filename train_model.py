@@ -65,6 +65,7 @@ error_bins = np.arange(-2, 3) - 0.5
 # Top subplot: True vs Predicted
 ax1.hist(y_test, bins=bins, alpha=0.5, label='True', edgecolor='black')
 ax1.hist(y_pred, bins=bins, alpha=0.5, label='Predicted', edgecolor='black')
+ax1.set_xlabel('Price Level')
 ax1.set_ylabel('Count')
 ax1.set_title('Price Level: True vs Predicted')
 ax1.legend(loc='upper left')
