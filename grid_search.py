@@ -19,10 +19,26 @@ metadata = (("x-goog-fieldmask", "places.displayName,places.id,places.location,p
 location = (32.709653, -117.171488)
 radius = 100  # meters
 
-places = []
+# --- Load existing data if present ---
+existing_places = []
 seen_ids = set()
-for i in range(50):
-    for j in range(20):
+
+output_file = "places_grid_search.json"
+
+if os.path.exists(output_file):
+    with open(output_file, "r", encoding="utf-8") as f:
+        existing_places = json.load(f)
+
+    # Seed seen_ids from previously saved places
+    for p in existing_places:
+        if "id" in p:
+            seen_ids.add(p["id"])
+
+print(f"Loaded {len(existing_places)} existing places")
+
+places = []
+for i in range(60):
+    for j in range(20, 50):       
         response = client.search_nearby({
             'location_restriction': {
                 'circle': {
@@ -42,7 +58,8 @@ for i in range(50):
                 
         time.sleep(0.11)  # ~9 req/sec, stay under request quota
 
-json_places = [
+# Convert only NEW places to dicts
+new_json_places = [
     MessageToDict(
         place._pb,
         preserving_proto_field_name=True,
@@ -51,7 +68,11 @@ json_places = [
     for place in places
 ]
 
-with open("places_grid_search.json", "w", encoding="utf-8") as f:
-    json.dump(json_places, f, indent=2, ensure_ascii=False)
+# Combine old + new
+combined_places = existing_places + new_json_places
 
-print(f"Total unique places fetched: {len(places)}")
+with open(output_file, "w", encoding="utf-8") as f:
+    json.dump(combined_places, f, indent=2, ensure_ascii=False)
+
+print(f"New places fetched this run: {len(new_json_places)}")
+print(f"Total unique places stored: {len(combined_places)}")
