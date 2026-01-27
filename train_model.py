@@ -22,11 +22,21 @@ df = pd.DataFrame([{
     "longitude": item["location"]["longitude"],
     "price_level": item["price_level"],
     "primary_type": item["primary_type"],
+    "types": ",".join(item["types"]),
     "rating": item["rating"],
     "user_rating_count": item["user_rating_count"],
 } for item in data if "price_level" in item and "rating" in item and "user_rating_count" in item])
 
-X = df[["latitude", "longitude", "rating", "user_rating_count"]]
+# Engineer features fine_dining and fast_food
+df['fine_dining'] = [True if 'fine_dining_restaurant' in t.split(',') else False for t in df['types']]
+df['fast_food'] = [True if 'fast_food_restaurant' in t.split(',') else False for t in df['types']]
+
+# Encode and add a feature for the primary type
+primary_type_le = LabelEncoder()
+primary_type_le.fit(np.unique(df['primary_type']))
+df['primary_type_enc'] = primary_type_le.transform(df['primary_type'])
+
+X = df[["latitude", "longitude", "rating", "user_rating_count", "primary_type_enc", "fine_dining", "fast_food"]]
 y = df["price_level"]
 
 # Example coordinates
