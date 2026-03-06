@@ -14,7 +14,7 @@ from sklearn.preprocessing import LabelEncoder
 from xgboost import XGBRegressor
 os.chdir(sys.path[0])
 
-with open("places_grid_search_50_by_20_plus_60_by_30.json", "r") as f:
+with open("places_grid_search_60_by_80.json", "r") as f:
     data = json.load(f)
 
 df = pd.DataFrame([{

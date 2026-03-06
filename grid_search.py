@@ -37,8 +37,8 @@ if os.path.exists(output_file):
 print(f"Loaded {len(existing_places)} existing places")
 
 places = []
-for i in range(60):
-    for j in range(20, 50):       
+for i in range(-20, 60):
+    for j in range(50, 80):       
         response = client.search_nearby({
             'location_restriction': {
                 'circle': {
